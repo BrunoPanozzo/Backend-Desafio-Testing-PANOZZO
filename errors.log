@@ -1,0 +1,71 @@
+fatal: Server error: CartNotFound: Error trying to get a cart
+fatal: Server error: CartNotFound: Error trying to get a cart
+fatal: Server error: CartNotFound: Error trying to get a cart
+fatal: Server error: CartNotFound: Error trying to get a cart
+fatal: Server error: ProductNotFound: Error trying to get a product
+fatal: Server error: ProductNotFound: Error trying to get a product
+fatal: Server error: ProductNotFound: Error trying to get a product
+fatal: Server error: ProductNotFound: Error trying to get a product
+error: undefined
+error: undefined
+error: undefined
+error: undefined
+error: undefined
+fatal: Server error: TypeError: controller.resetPassword is not a function
+fatal: Server error: No se pudo resetear la password!
+fatal: Server error: ReferenceError: email is not defined
+fatal: Server error: ReferenceError: email is not defined
+fatal: Server error: ReferenceError: email is not defined
+fatal: Server error: ReferenceError: email is not defined
+fatal: Server error: ReferenceError: email is not defined
+fatal: Server error: ReferenceError: email is not defined
+fatal: Server error: ReferenceError: _email is not defined
+fatal: Server error: ReferenceError: _email is not defined
+fatal: Server error: ReferenceError: _email is not defined
+fatal: Server error: ReferenceError: _email is not defined
+fatal: Server error: No se pudo resetear la password!
+fatal: Server error: No se pudo resetear la password!
+fatal: Server error: No se pudo resetear la password!
+fatal: Server error: No se pudo resetear la password!
+fatal: Server error: No se pudo resetear la password!
+fatal: Server error: No se pudo resetear la password!
+fatal: Server error: No se pudo resetear la password!
+fatal: Server error: No se pudo resetear la password!
+fatal: Server error: No se pudo resetear la password!
+error: Not found error: El usuario con código '66590b95ffba4ad544bb7fa7' no existe.
+fatal: Server error: ReferenceError: productActual is not defined
+fatal: Server error: Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+fatal: Server error: ProductNotFound: Error trying to get a product
+fatal: Server error: TypeError: Cannot read properties of undefined (reading 'email')
+fatal: Server error: ReferenceError: result is not defined
+fatal: Server error: ReferenceError: CustomError is not defined
+fatal: Server error: ReferenceError: cartId is not defined
+fatal: Server error: InvalidAction: Error trying to add a product to a cart
+fatal: Server error: InvalidAction: Error trying to add a product to a cart
+fatal: Server error: InvalidAction: Error trying to add a product to a cart
+fatal: Server error: InvalidAction: Error trying to add a product to a cart
+fatal: Server error: InvalidAction: Error trying to add a product to a cart
+fatal: Server error: InvalidAction: Error trying to add a product to a cart
+fatal: Server error: InvalidAction: Error trying to add a product to a cart
+fatal: Server error: InvalidAction: Error trying to add a product to a cart
+fatal: Server error: InvalidAction: Error trying to add a product to a cart
+fatal: Server error: InvalidAction: Error trying to add a product to a cart
+fatal: Server error: InvalidAction: Error trying to add a product to a cart
+fatal: Server error: ReferenceError: logedUser is not defined
+fatal: Server error: ReferenceError: quantity is not defined
+fatal: Server error: ReferenceError: quantity is not defined
+fatal: Server error: ReferenceError: quantity is not defined
+fatal: Server error: ReferenceError: quantity is not defined
+fatal: Fatal error: Error
+fatal: Fatal error: Error
+error: Not found error: El usuario con código '66590b95ffba4ad544bb7fa7' no existe.
+fatal: Server error: InvalidAction: Error trying to add a product to a cart
+fatal: Server error: InvalidAction: Error trying to add a product to a cart
+fatal: Server error: InvalidAction: Error trying to add a product to a cart
+fatal: Server error: InvalidAction: Error trying to add a product to a cart
+error: ERROR test example
+fatal: FATAL test example
+fatal: Server error: ProductNotFound: Error trying to get a product
+fatal: Server error: ProductNotFound: Error trying to get a product
+fatal: Server error: ProductNotFound: Error trying to get a product
+fatal: Server error: ProductNotFound: Error trying to get a product

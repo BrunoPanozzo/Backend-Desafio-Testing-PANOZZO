@@ -1,0 +1,299 @@
+paths:
+  /api/products/all:
+    get:
+      summary: Devuelve una lista con todos los productos de la tienda
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Operación finalizada con éxito, los productos fueron obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#components/schemas/Product' 
+        "500":
+          description: Error interno del servidor, usualmente generado por una query defectuosa o un fallo en la conexión con la base de datos
+  /api/products/{pid}:
+    get:
+      summary: Obtiene un sólo producto a partir de su Id
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto a devolver
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Operación finalizada con éxito, se devuelve el producto
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payload:
+                    $ref: '#components/schemas/ProductDTO' 
+        "500":
+          description: Error interno del servidor, usualmente generado por una query defectuosa o un fallo en la conexión con la base de datos
+    put:
+      summary: Actualiza un producto a partir de su Id
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          requiered: true
+          description: Id del producto a actualizar
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/updateProduct'
+      responses:
+        "200":
+          description: El producto fue modificado correctamente
+          content:
+            application/json:
+              schema:                
+                $ref: '#components/schemas/ProductDTO'
+        "401":
+          description: No tiene los permisos necesarios para modificar el producto
+        "404":
+          description: El producto a modificar no existe
+        "500":
+          description: Error interno del servidor, usualmente generado por una query defectuosa o un fallo en la conexión con la base de datos
+    delete:
+      summary: Elimina un producto a partir de su Id
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          requiered: true
+          description: Id del producto a borrar
+          schema:
+            type: string      
+      responses:
+        "200":
+          description: El producto fue eliminado correctamente
+          content:
+            application/json:
+              schema:                
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payload:
+                    type: string
+        "401":
+          description: No tiene los permisos necesarios para borrar el producto
+        "404":
+          description: El producto a borrar no existe
+        "500":
+          description: Error interno del servidor, usualmente generado por una query defectuosa o un fallo en la conexión con la base de datos
+  /api/products/create:
+    post:
+      summary: Crear un nuevo producto y lo guarda en la base de datos
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/addProduct'
+      responses:
+        "201":
+          description: El producto se agregó exitosamente
+          content:
+            application/json:
+              schema:                
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payload:
+                    type: string
+        "400":
+          description: Producto inválido
+        "401":
+          description: No tiene los permisos necesarios para crear el producto        
+        "500":
+          description: Error interno del servidor, usualmente generado por una query defectuosa o un fallo en la conexión con la base de datos
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Identificador interno del producto autogenerado por Mongo
+        title:
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripción detallada del producto
+        code:
+          type: string
+          description: Código interno y unívoco del producto autogenerado por la app
+        price:
+          type: number
+          description: Precio del producto
+        thumbnail:
+          type: array
+          description: Listado de imágenes del producto
+        stock:
+          type: number
+          description: Stock del producto
+        status:
+          type: boolean
+          description: Estado del producto
+        category:
+          type: string
+          description: Categoría del producto       
+        owner:
+          type: string
+          description: Dueño del producto, se refiere al usuario premiun que lo creó. Por defecto, es el usuario Administrador    
+      example:
+        _id: ObjectId('661e819126c8b1e342774c40')
+        title: Galaxy Watch5 Bluetooth (44mm) Graphite
+        description: Pantalla táctil SAMOLED de 1.4'. Apto para descarga de aplicaciones. Resiste hasta 50m bajo el agua. Con GPS y mapas integrados. Batería de 40 h de duración y carga rápida. Conectividad por Bluetooth y wifi. Capacidad de la memoria interna de 7.5GB.
+        code: Moviles3
+        price: 174999
+        thumbnail: [smartwatch5.png]
+        stock: 10
+        status: true
+        category: Moviles
+        owner: ADMIN
+    ProductDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identificador interno del producto autogenerado por Mongo
+        title:
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripción detallada del producto       
+        price:
+          type: number
+          description: Precio del producto
+        thumbnail:
+          type: array
+          description: Listado de imágenes del producto
+        stock:
+          type: number
+          description: Stock del producto        
+        category:
+          type: string
+          description: Categoría del producto              
+      example:
+        id: '661e819126c8b1e342774c40'
+        title: Galaxy Watch5 Bluetooth (44mm) Graphite
+        description: Pantalla táctil SAMOLED de 1.4'. Apto para descarga de aplicaciones. Resiste hasta 50m bajo el agua. Con GPS y mapas integrados. Batería de 40 h de duración y carga rápida. Conectividad por Bluetooth y wifi. Capacidad de la memoria interna de 7.5GB.
+        price: 174999
+        thumbnail: [smartwatch5.png]
+        stock: 10
+        category: Moviles
+  requestBodies:
+    addProduct:
+      type: object
+      properties: 
+        title:
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripción detallada del producto
+        code:
+          type: string
+          description: Código interno y unívoco del producto autogenerado por la app
+        price:
+          type: number
+          description: Precio del producto
+        thumbnail:
+          type: array
+          description: Listado de imágenes del producto
+        stock:
+          type: number
+          description: Stock del producto
+        status:
+          type: boolean
+          description: Estado del producto
+        category:
+          type: string
+          description: Categoría del producto       
+        owner:
+          type: string
+          description: Dueño del producto, se refiere al usuario premiun que lo creó. Por defecto, es el usuario Administrador    
+      example:
+        title: Galaxy Watch5 Bluetooth (44mm) Graphite
+        description: Pantalla táctil SAMOLED de 1.4'. Apto para descarga de aplicaciones. Resiste hasta 50m bajo el agua. Con GPS y mapas integrados. Batería de 40 h de duración y carga rápida. Conectividad por Bluetooth y wifi. Capacidad de la memoria interna de 7.5GB.
+        code: Moviles3
+        price: 174999
+        thumbnail: [smartwatch5.png]
+        stock: 10
+        status: true
+        category: Moviles
+        owner: ADMIN
+    updateProduct:
+      type: object
+      properties: 
+        title:
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripción detallada del producto
+        code:
+          type: string
+          description: Código interno y unívoco del producto autogenerado por la app
+        price:
+          type: number
+          description: Precio del producto
+        thumbnail:
+          type: array
+          description: Listado de imágenes del producto
+        stock:
+          type: number
+          description: Stock del producto
+        status:
+          type: boolean
+          description: Estado del producto
+        category:
+          type: string
+          description: Categoría del producto       
+        owner:
+          type: string
+          description: Dueño del producto, se refiere al usuario premiun que lo creó. Por defecto, es el usuario Administrador    
+      example:
+        title: Galaxy Watch5 Bluetooth (44mm) Graphite
+        description: Pantalla táctil SAMOLED de 1.4'. Apto para descarga de aplicaciones. Resiste hasta 50m bajo el agua. Con GPS y mapas integrados. Batería de 40 h de duración y carga rápida. Conectividad por Bluetooth y wifi. Capacidad de la memoria interna de 7.5GB.
+        code: Moviles3
+        price: 174999
+        thumbnail: [smartwatch5.png]
+        stock: 10
+        status: true
+        category: Moviles
+        owner: ADMIN

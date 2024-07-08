@@ -1,0 +1,454 @@
+paths:
+  /api/carts:
+    get:
+      summary: Devuelve una lista con todos los carritos existentes en la base de datos
+      tags:
+        - Carts
+      responses:
+        "200":
+          description: Operación finalizada con éxito, los carritos fueron obtenidos correctamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payload:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CartDTO'
+        "500":
+          description: Error interno del servidor, usualmente generado por una query defectuosa o un fallo en la conexión con la base de datos
+    post:
+      summary: Crea un nuevo carrito en la base de datos
+      tags:
+        - Carts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/addCart'
+      responses:
+        "201":
+          description: Carrito creado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payload:
+                    type: string
+        "400":
+          description: Carrito inválido 
+        "401":
+          description: No tiene los permisos necesarios para crear el carrito        
+        "500":
+          description: Error interno del servidor, usualmente generado por una query defectuosa o un fallo en la conexión con la base de datos
+  /api/carts/{cid}:
+    get:
+      summary: Obtiene un carrito específico a partir de si Id
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Id del carrito a devolver
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Operación finalizada con éxito, se devuelve el carrito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payload:
+                    $ref: '#/components/schemas/CartDTO'
+        "404":
+          description: El carrito no existe
+        "500":
+          description: Error en el servidor
+    put:
+      summary: Actualiza un carrito a partir de su Id
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Id del carrito a actualizar
+          schema:
+            type: string
+      requestBody:
+        description: Lista de productos y cantidades a actualizar en el carrito
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/requestBodies/updateCart'
+      responses:
+        "200":
+          description: Carrito actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartDTO'        
+        "401":
+          description: No tiene los permisos necesarios para modificar el carrito
+        "404":
+          description: El carrito a modificar no existe
+        "500":
+          description: Error interno del servidor, usualmente generado por una query defectuosa o un fallo en la conexión con la base de datos
+    delete:
+      summary: Elimina un carrito a partir de si Id  
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Id del carrito a borrar
+          schema:
+            type: string
+      responses:
+        "200":
+          description: El carrito fue eliminado satisfactoriamente
+          content:
+            application/json:
+              schema:                
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payload:
+                    type: string
+        "401":
+          description: No tiene los permisos necesarios para borrar el carrito
+        "404":
+          description: El carrito a eliminar no existe
+        "500":
+          description: Error interno del servidor, usualmente generado por una query defectuosa o un fallo en la conexión con la base de datos
+  /api/carts/{cid}/products/{pid}:
+    post:
+      summary: Agrega un producto a un carrito
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Id del carrito al que se agregará el producto
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto a agregar
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                  description: Cantidad del producto
+      responses:
+        "200":
+          description: Producto agregado exitosamente al carrito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payload:
+                    $ref: '#/components/schemas/CartDTO'
+        "400":
+          description: No se pudo agregar el producto al carrito        
+        "401":
+          description: No tiene los permisos necesarios para agregar el producto al carrito        
+        "500":
+          description: Error interno del servidor, usualmente generado por una query defectuosa o un fallo en la conexión con la base de datos
+    put:
+      summary: Actualiza un producto de un carrito, en especial su cantidad
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Id del carrito que contiene el producto
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto a modificar dentro del carrito
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: integer
+                  description: Cantidad del producto
+      responses:
+        "200":
+          description: Producto del carrito modificado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payload:
+                    $ref: '#/components/schemas/CartDTO'
+        "400":
+          description: No se pudo modificar el producto en el carrito        
+        "401":
+          description: No tiene los permisos necesarios para modificar el producto en el carrito        
+        "500":
+          description: Error interno del servidor, usualmente generado por una query defectuosa o un fallo en la conexión con la base de datos
+    delete:
+      summary: Elimina un producto de un carrito específico
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Id del carrito que contiene el producto que se quiere eliminar
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          description: Id del producto a eliminar
+          schema:
+            type: string
+      responses:
+        "200":
+          description: El producto fue eliminado correctamente del carrito
+          content:
+            application/json:
+              schema:                
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payload:
+                    type: string
+        "400":
+          description: No se pudo eliminar el producto del carrito        
+        "401":
+          description: No tiene los permisos necesarios para borrar el producto del carrito
+        "404":
+          description: El producto a borrar no existe
+        "500":
+          description: Error interno del servidor, usualmente generado por una query defectuosa o un fallo en la conexión con la base de datos
+  /api/carts/{cid}/purchase:  
+    get:
+      summary: Genera un ticket para una orden de compra confirmada
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: Id del carrito asociado a la orden de compra
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Ticket de compra generado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  payload:
+                    $ref: '#/components/schemas/Ticket'
+        "500":
+          description: Error interno del servidor, usualmente generado por una query defectuosa o un fallo en la conexión con la base de datos
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Identificador interno del carrito autogenerado por Mongo
+        id:
+          type: string
+          description: Código interno y unívoco del carrito autogenerado por la app
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+                description: Identificador interno del producto autogenerado por Mongo
+              quantity:
+                type: integer
+                description: Cantidad comprada del producto
+      example:
+        _id: '6683e548cb7f87ea4f286638'
+        id: '1719919944715'
+        products: 
+          - _id: '661e819126c8b1e342774c40'
+            quantity: 5
+          - _id: '661e816c26c8b1e342774c3d'
+            quantity: 4
+    CartDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Identificador interno del carrito autogenerado por Mongo
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                description: Identificador interno del producto autogenerado por Mongo
+              title:
+                type: string
+                description: Nombre del producto
+              description:
+                type: string
+                description: Descripción detallada del producto       
+              price:
+                type: number
+                description: Precio del producto
+              thumbnail:
+                type: array
+                description: Listado de imágenes del producto
+              stock:
+                type: number
+                description: Stock del producto        
+              category:
+                type: string
+                description: Categoría del producto     
+              quantity:
+                type: integer
+                description: Cantidad comprada del producto
+      example:
+        id: '6683e548cb7f87ea4f286638'
+        products: 
+          - id: '661e819126c8b1e342774c40'
+            title: Galaxy Watch5 Bluetooth (44mm) Graphite
+            description: Pantalla táctil SAMOLED de 1.4'. Apto para descarga de aplicaciones. Resiste hasta 50m bajo el agua. Con GPS y mapas integrados. Batería de 40 h de duración y carga rápida. Conectividad por Bluetooth y wifi. Capacidad de la memoria interna de 7.5GB.
+            price: 174999
+            thumbnail: [smartwatch5.png]
+            stock: 10
+            category: Moviles
+            quantity: 5
+          - id: '661e816c26c8b1e342774c3d'
+            title: Celular Galaxy S22 Phantom Black
+            description: Compatible con redes 5G. Pantalla Dynamic AMOLED 2X de 6.8. Tiene 4 cámaras traseras de 108Mpx/10Mpx/10Mpx/12Mpx. Cámara delantera de 40Mpx. Procesador Exynos 2200 Octa-Core de 2.8GHz con 12GB de RAM. Batería de 5000mAh con carga inalámbrica. Memoria interna de 512GB.
+            price: Celular Galaxy S22 Phantom Black
+            thumbnail: [celular_s22..png]
+            stock: 7
+            category: Moviles
+            quantity: 4
+    Ticket:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Identificador interno de la compra autogenerado por Mongo         
+        code:
+          type: string
+          description: Código único del ticket        
+        purchase_datetime:
+          type: string
+          format: date-time
+          description: Fecha de la compra
+        amount: 
+          type: number
+          description: Monto total de la compra
+        purchaser:
+          type: string
+          description: Correo electrónico del comprador
+      example:
+        _id: ObjectId('6659d186c15d9d86871ea119')
+        code: '1717162374088'
+        purchase_datetime: 2024-05-31T13:32:54.087+00:00
+        amount: 459999
+        purchaser: 'brunopanozzo@gmail.com'
+        requestBodies:
+  requestBodies:
+    addCart:
+      type: object
+      properties: 
+        products:
+          type: array
+          description: Arreglo, vacío o no, del nuevo carrito a crear   
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+                description: Identificador interno del producto autogenerado por Mongo
+              quantity:
+                type: integer
+                description: Cantidad comprada del producto 
+      example:
+        products: 
+          - _id: '661e819126c8b1e342774c40'
+            quantity: 5
+          - _id: '661e816c26c8b1e342774c3d'
+            quantity: 4
+    updateCart:
+      type: object
+      properties: 
+        products:
+          type: array
+          description: Arreglo, vacío o no, del carrito a modificar   
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+                description: Identificador interno del producto autogenerado por Mongo
+              quantity:
+                type: integer
+                description: Cantidad comprada del producto 
+      example:
+        products: 
+          - _id: '661e819126c8b1e342774c40'
+            quantity: 5
+          - _id: '661e816c26c8b1e342774c3d'
+            quantity: 4        
+    
