@@ -122,6 +122,15 @@ class UserDAO {
         }
     }
 
+    async deleteUser(userId) {
+        try {
+            await userModel.deleteOne({ _id: userId })
+        }
+        catch (err) {
+            console.error(err)
+            return null
+        }
+    }
 
 }
 

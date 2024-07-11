@@ -27,11 +27,19 @@
   },
   "name": "backend-desafio-testing-panozzo",
   "version": "1.0.0",
+  "type": "commonjs",
   "main": "./src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "testMessage": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha test",
+    "dev": "nodemon src/app.js",
+    "start": "node src/app.js"
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "chai": "^5.1.1",
+    "mocha": "^10.6.0"
+  }
 }
