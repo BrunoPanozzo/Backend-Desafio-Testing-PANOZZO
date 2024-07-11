@@ -16,6 +16,11 @@ describe('Testing Carts DAO with Assert', () => {
         await this.connection.db.dropDatabase()
         await this.connection.close()
     })
+    
+    beforeEach(async function () {
+        await this.connection.db.collection('carts').deleteMany({})
+        this.timeout(5000)
+    })
 
     it('Debe devolver un arreglo con todos los carritos', async function () {
         const result = await this.cartsDao.getCarts()
