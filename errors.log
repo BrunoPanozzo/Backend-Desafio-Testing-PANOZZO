@@ -69,3 +69,6 @@ fatal: Server error: ProductNotFound: Error trying to get a product
 fatal: Server error: ProductNotFound: Error trying to get a product
 fatal: Server error: ProductNotFound: Error trying to get a product
 fatal: Server error: ProductNotFound: Error trying to get a product
+fatal: Server error: TypeError: Cannot read properties of undefined (reading 'rol')
+fatal: Server error: TypeError: Cannot read properties of undefined (reading 'rol')
+fatal: Server error: TypeError: Cannot read properties of undefined (reading 'rol')
