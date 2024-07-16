@@ -93,7 +93,7 @@ class ProductsController {
 
             if (user.rol == ADMIN || user.rol == USER_PREMIUM) {
                 //agregar el producto al productManager
-                await this.service.addProduct(newProduct.title,
+                const createdProduct = await this.service.addProduct(newProduct.title,
                     newProduct.description,
                     newProduct.price,
                     newProduct.thumbnail,
@@ -108,8 +108,9 @@ class ProductsController {
 
                 // HTTP 201 OK => producto creado exitosamente
                 // res.status(201).json(`El producto con código '${newProduct.code}' se agregó exitosamente.`)
-                res.sendCreated(`El producto con código '${newProduct.code}' se agregó exitosamente.`)
+                //res.sendCreated(`El producto con código '${newProduct.code}' se agregó exitosamente.`)
                 // res.redirect('/allProducts')
+                res.sendCreated(createdProduct._id)
             }
             else
                 res.sendUnauthorizedError(`El usuario ${user.email} no tiene los permisos para crear productos.`)
@@ -156,6 +157,8 @@ class ProductsController {
             const prodId = req.pid
 
             const product = await this.service.getProductById(prodId)
+
+            console.log(user)
             if (!product) {
                 return product === false
                     // HTTP 404 => el ID es válido, pero no se encontró ese producto

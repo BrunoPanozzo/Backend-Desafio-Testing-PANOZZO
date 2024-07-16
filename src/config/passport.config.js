@@ -50,7 +50,6 @@ const initializeStrategy = () => {
                 //ya existe un usuario con ese email
                 return done(null, false)
             }
-
             //puedo continuar con la registración
             const newCart = cartDAO.getID(await cartDAO.addCart([])) //null         
             const newUser = {

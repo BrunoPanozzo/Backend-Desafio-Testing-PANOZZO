@@ -73,3 +73,13 @@ fatal: Server error: TypeError: Cannot read properties of undefined (reading 'ro
 fatal: Server error: TypeError: Cannot read properties of undefined (reading 'rol')
 fatal: Server error: TypeError: Cannot read properties of undefined (reading 'rol')
 fatal: Server error: TypeError: Cannot read properties of undefined (reading 'rol')
+fatal: Server error: Registración errónea.!
+fatal: Server error: ProductNotFound: Error trying to get a product
+fatal: Server error: InvalidProductData: Error trying to create a new product
+fatal: Server error: InvalidProductData: Error trying to create a new product
+fatal: Server error: ProductNotFound: Error trying to get a product
+fatal: Server error: ProductNotFound: Error trying to get a product
+fatal: Server error: TypeError: Cannot read properties of undefined (reading 'email')
+fatal: Server error: TypeError: Cannot read properties of undefined (reading 'email')
+fatal: Server error: TypeError: Cannot read properties of undefined (reading 'email')
+fatal: Server error: TypeError: Cannot read properties of undefined (reading 'email')
