@@ -158,7 +158,6 @@ class ProductsController {
 
             const product = await this.service.getProductById(prodId)
 
-            console.log(user)
             if (!product) {
                 return product === false
                     // HTTP 404 => el ID es válido, pero no se encontró ese producto
