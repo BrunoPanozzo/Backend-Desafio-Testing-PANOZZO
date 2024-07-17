@@ -40,10 +40,9 @@ const initializeStrategy = () => {
         passReqToCallback: true,
         usernameField: 'email'
     }, async (req, username, password, done) => {  //esta es el callback donde se especifica cómo se debe registrar un user
-
         const { firstName, lastName, email, age } = req.body
 
-        try {
+        try {      
             // user = await userModel.findOne({ email: username })
             const userAlreadyExists = await userDAO.login({ email: username })
             if (userAlreadyExists) {

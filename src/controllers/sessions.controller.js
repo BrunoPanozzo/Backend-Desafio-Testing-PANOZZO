@@ -177,7 +177,8 @@ class SessionsController {
     logout(req, res) {
         try {
             req.session.destroy(_ => {
-                res.redirect('/')
+                //res.redirect('/')
+                res.sendSuccess(req.user._id)
             })
         }
         catch (err) {
